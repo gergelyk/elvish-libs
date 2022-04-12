@@ -8,12 +8,11 @@ if (not-eq [(str:split . $version)][..2] [0 18]) {
     fail 'Incompatible elvish version'
 }
 
+# Activate/deactivate venv under given path.
+# Examples:
+# venv-activate /path/to/my/.venv # activate
+# venv-activate -                 # deactivate
 fn venv-activate {|path|
-  # Activate/deactivate venv under given path
-  # examples:
-  # venv-activate /path/to/my/.venv # activate
-  # venv-activate -                 # deactivate
-
   if (eq $path -) {
     if (is $curr-venv $nil) {
       return
@@ -46,13 +45,12 @@ fn venv-activate {|path|
   echo (styled $text blue)
 }
 
+# Activate venv if $venv-name dir exists.
+# Otherwise deactivate last venv.
+# Can be called multiple times.
+# Example:
+# init-auto-venv-activation .venv
 fn init-auto-venv-activation {|venv-name|
-  # Activate venv if $venv-name dir exists.
-  # Otherwise deactivate last venv.
-  # Can be called multiple times.
-  # example:
-  # init-auto-venv-activation .venv
-
   fn watch-venv {
     if (path:is-dir $venv-name) {
       venv-activate $venv-name > nop
@@ -75,17 +73,16 @@ locals().update(_json.loads(input()))
 print(_json.dumps({k: v for k, v in locals().items() if not k.startswith('_')}))
 "}
 
+# Evaluate code in python3.
+# Examples:
+#
+# var res: = (ns (pyeval [&x=(num 123) &y=(num 2)] 'z = x / y'))
+# echo $res:z  # 61.5
+#
+# fn dv {|x y| { put (pyeval [&x=(num $x) &y=(num $y)] 'z = x / y')[z] } }
+# dv 123 2  # ▶ (num 61.5)
+# dv 123 0  # exception
 fn pyeval {|vars code|
-  # evaluate code in python3
-  # examples:
-  #
-  # var res: = (ns (pyeval [&x=(num 123) &y=(num 2)] 'z = x / y'))
-  # echo $res:z  # 61.5
-  #
-  # fn dv {|x y| { put (pyeval [&x=(num $x) &y=(num $y)] 'z = x / y')[z] } }
-  # dv 123 2  # ▶ (num 61.5)
-  # dv 123 0  # exception
-
   put $vars | to-json | python3 -c (wrap-py-code $code) | from-json
 }
 
