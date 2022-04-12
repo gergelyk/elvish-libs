@@ -53,9 +53,9 @@ fn venv-activate {|path|
 fn init-auto-venv-activation {|venv-name|
   fn watch-venv {
     if (path:is-dir $venv-name) {
-      venv-activate $venv-name | nop
+      venv-activate $venv-name > /dev/null
     } else {
-      venv-activate - | nop
+      venv-activate - > /dev/null
     }
   }
 

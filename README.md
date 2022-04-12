@@ -1,5 +1,10 @@
 # elvish-libs
 
+## Requirements
+
+- Supported platforms: Linux
+- Python3, modules: virtualenv
+
 ## Installation
 
 Execute once:
