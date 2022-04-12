@@ -18,7 +18,7 @@ var pyeval~ = $python:pyeval~
 
 ## Usage
 
-### virtualenv activation
+### Virtualenv Activation
 
 Virtualenv will be activated whenever you cd into directory with .venv and deactivated whenever you leave it.
 
@@ -28,15 +28,17 @@ venv /path/to/your/venv  # activate
 venv -                   # deactivate
 ```
 
-### code evaluation
+### Code Evaluation
 
 ```
-# pyeval [&] z=10+20 # ▶ [&z=(num 30.0)]
-#
-# var res: = (ns (pyeval [&x=(num 123) &y=(num 2)] 'z = x / y'))
-# echo $res:z  # 61.5
-#
-# fn dv {|x y| { put (pyeval [&x=(num $x) &y=(num $y)] 'z = x / y')[z] } }
-# dv 123 2  # ▶ (num 61.5)
-# dv 123 0  # exception
+pyeval [&] z=10+20 # ▶ [&z=(num 30.0)]
+```
+```
+var res: = (ns (pyeval [&x=(num 123) &y=(num 2)] 'z = x / y'))
+echo $res:z  # 61.5
+```
+```
+fn dv {|x y| { put (pyeval [&x=(num $x) &y=(num $y)] 'z = x / y')[z] } }
+dv 123 2  # ▶ (num 61.5)
+dv 123 0  # exception
 ```
