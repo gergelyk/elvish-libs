@@ -53,9 +53,9 @@ fn venv-activate {|path|
 fn init-auto-venv-activation {|venv-name|
   fn watch-venv {
     if (path:is-dir $venv-name) {
-      venv-activate $venv-name > nop
+      venv-activate $venv-name | nop
     } else {
-      venv-activate - > nop
+      venv-activate - | nop
     }
   }
 
@@ -75,6 +75,8 @@ print(_json.dumps({k: v for k, v in locals().items() if not k.startswith('_')}))
 
 # Evaluate code in python3.
 # Examples:
+#
+# pyeval [&] z=10+20 # ▶ [&z=(num 30.0)]
 #
 # var res: = (ns (pyeval [&x=(num 123) &y=(num 2)] 'z = x / y'))
 # echo $res:z  # 61.5
