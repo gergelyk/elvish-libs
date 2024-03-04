@@ -4,7 +4,8 @@ use path
 var curr-venv
 
 # Assert elvish version
-if (not-eq [(str:split . $version)][..2] [0 19]) {
+var major minor = (take 2 [(str:split . $version)])
+if (not (and (== $major 0) (<= 19 $minor) (<= $minor 20))) {
     fail 'Incompatible elvish version'
 }
 
