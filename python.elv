@@ -5,7 +5,7 @@ var curr-venv
 
 # Assert elvish version
 var major minor = (take 2 [(str:split . $version)])
-if (not (and (== $major 0) (<= 19 $minor) (<= $minor 20))) {
+if (not (and (== $major 0) (<= 19 $minor) (<= $minor 21))) {
     fail 'Incompatible elvish version'
 }
 
